@@ -34,6 +34,20 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+
+        // Enable to debug issues.
+        // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+
+        var notificationOpenedCallback = function(jsonData) {
+            console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+        };
+
+        window.plugins.OneSignal.init("14b57213-fb0b-48f2-a294-40fc59dd036b",
+            {googleProjectNumber: "711621241954"},
+            notificationOpenedCallback);
+
+        // Show an alert box if a notification comes in when the user is in your app.
+        window.plugins.OneSignal.enableInAppAlertNotification(true);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
