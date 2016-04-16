@@ -16,7 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
+var app;
+app = {
     // Application Constructor
     initialize: function() {
         this.bindEvents();
@@ -27,6 +28,8 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.addEventListener('onCleverTapProfileSync', this.onCleverTapProfileSync, false); // optional: to be notified of CleverTap user profile synchronization updates 
+        document.addEventListener('onDeepLink', this.onDeepLink, false); // example: optional, register your own custom listener to handle deep links passed from your native code.
     },
     // deviceready Event Handler
     //
@@ -42,12 +45,25 @@ var app = {
             console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
         };
 
-        window.plugins.OneSignal.init("14b57213-fb0b-48f2-a294-40fc59dd036b",
-            {googleProjectNumber: "711621241954"},
-            notificationOpenedCallback);
+        window.plugins.OneSignal.init("14b57213-fb0b-48f2-a294-40fc59dd036b", { googleProjectNumber: "711621241954" }, notificationOpenedCallback);
 
         // Show an alert box if a notification comes in when the user is in your app.
         window.plugins.OneSignal.enableInAppAlertNotification(true);
+        amplitude.logEvent('deviceready');
+
+        CleverTap.setDebugLevel(1);
+        CleverTap.enablePersonalization();
+        CleverTap.registerPush();
+
+    },
+
+    onCleverTapProfileSync: function(e) {
+        console.log(e.updates);
+    },
+
+    // example deep link handling
+    onDeepLink: function(e) {
+        console.log(e.deeplink);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {

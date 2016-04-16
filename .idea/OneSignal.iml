@@ -3,6 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/plugins/com.clevertap.cordova.CleverTapPlugin/Starter/platforms" />
+      <excludeFolder url="file://$MODULE_DIR$/plugins/cordova-plugin-apteligent/platforms" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
