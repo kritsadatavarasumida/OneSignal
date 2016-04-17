@@ -39,6 +39,7 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: 'unsafe-inline' https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *" /> -->
 
     <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="import" href="content.html">
     <title>Hello World</title>
     <script type="text/javascript">
         (function(e,t){var n=e.amplitude||{};var r=t.createElement("script");r.type="text/javascript";
@@ -52,6 +53,7 @@
             for(var p=0;p<l.length;p++){u(l[p])}e.amplitude=n})(window,document);
 
         amplitude.init("fe5e0759235a71b6d4be10b05417dfd3");
+
     </script>
 </head>
 
@@ -61,13 +63,20 @@
         <div id="deviceready" class="blink">
             <p class="event listening">Connecting to Device</p>
             <p class="event received">Device is Ready</p>
+            <p id="externalcontent"></p>
         </div>
     </div>
+    <!-- <div w3-include-html="content.html"></div> -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
+    <!-- <script type="text/javascript" src="js/w3-include-HTML.js"></script> -->
     <script type="text/javascript">
         app.initialize();
+
+        var getImport = document.querySelector('link[rel=import]');
+        var getContent = getImport.import.querySelector('#content');
+        $('#externalcontent').html(document.importNode(getContent, true));
     </script>
 </body>
 
