@@ -43,18 +43,23 @@ app = {
 
         var notificationOpenedCallback = function(jsonData) {
             console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+            // console.log(jsonData.additionalData.id);
+            amplitude.logEvent('callbackrecieved');
         };
 
-        window.plugins.OneSignal.init("14b57213-fb0b-48f2-a294-40fc59dd036b", { googleProjectNumber: "711621241954" }, notificationOpenedCallback);
+        window.plugins.OneSignal.init("14b57213-fb0b-48f2-a294-40fc59dd036b", { googleProjectNumber: "711621241954" , autoRegister: true}, notificationOpenedCallback);
 
         // Show an alert box if a notification comes in when the user is in your app.
         window.plugins.OneSignal.enableInAppAlertNotification(true);
+        window.plugins.OneSignal.promptLocation();
+
         amplitude.logEvent('deviceready');
 
         CleverTap.setDebugLevel(1);
         CleverTap.enablePersonalization();
         CleverTap.registerPush();
-
+        CleverTap.profileSet({"Identity":"3100601855039", "DOB":"1980-07-28", "custom":1.3 , "Firstname":"Kritsada", "Lastname":"Tavarasumida" , "Email":"kritsada.tavarasumida@gmail.com" , "FBID":"100006058871422" , "Phone":0809011110});
+        CleverTap.recordEventWithName("Test custom event");
     },
 
     onCleverTapProfileSync: function(e) {
